@@ -1,2 +1,25 @@
 linux workstation   10.50.33.146   
 windows workstation 10.50.26.106  
+open terminal
+ssh student@WINDOWS IP -X
+password is password
+type terminator
+boom
+*break*
+ using python3 on terminator
+using vim 
+print("") can be done after running python3 or just type vim "name.py" and run it in there, then run the command: python3 "name.py"
+we now are editing the vim program so fuuture scripts run the way the instrucot wants formatted
+
+vim $HOME/ .vimrc
+syntax enable
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set number
+filetype indent on
+set autoindent
+
+num = 10
+type=(num)
+print(type(num))
