@@ -20,6 +20,8 @@ email= 'name@domain.com'
 
 ['name','domain','com']
 
+fellowship[]
+fellowshi.append('frodo')
 
 
 
