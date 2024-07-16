@@ -1,3 +1,36 @@
+strinf manipulation
 mutable immutable
-  zero index notation
-  
+
+zero index notation
+
+tuple = parentheses = immutable = unchangeable
+
+list = square brackets = mutable = changeable
+
+join is a method function 
+we know that because of the dot .
+':'.join(lettters) =j:e:l:l:o
+
+split is a method function {splits by defaukt on spaces}
+word.split('e') == jllo
+
+#activity - split an email address
+
+email= 'name@domain.com'
+
+['name','domain','com']
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
