@@ -23,10 +23,16 @@ email= 'name@domain.com'
 fellowship[]
 fellowshi.append('frodo')
 
+'{}'.format is used to place data inside a string
+sometimes used inside a print statement
 
-
-
-
+  1 email = "name@domain.com"
+  2 email1 = email.split('@')
+  3 email2 = '.'.join(email1)
+  4 email3 = email2.split('.')
+  5 print (email3)
+  6 
+her what i did was i used the given email,split it, then joined it again. nad hit print. was successfl
 
 
 
