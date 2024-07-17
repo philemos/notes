@@ -35,6 +35,69 @@ sometimes used inside a print statement
 her what i did was i used the given email,split it, then joined it again. nad hit print. was successfl
 
 
+num = int(input('type number here:/n'))
+if num % 3 == 0 and num % 5 == 0:
+  print('fizzbuzz')
+elif num % 3 == 0:
+  print('fizz')
+elif num % 5 == 0:
+  print('buzz')
+else 
+  print(num)
+
+this is fizzbuzz test. uhhhhhhhhhhhh 
+make it print 3 when divisible by three and make it buzz when divisble by 5 and make it fizzbuzz when divisible by by both
+
+xmen + ['superman','night crawler','deadpool','storm']
+
+for hero in xmen:
+  if hero == 'superman':
+    print('wrong universe')
+  elif hero == 'deadpool':
+    print(hero + 'is the best one!')
+  else:
+    print('this is a marvel hero')
+this is an example of a for loop.
+##########################################
+num = 0
+while num < 5 
+  print(num)
+  num += 1
+0
+1
+2
+3
+4...
+
+
+def test():
+  while True:
+    usr = input("Type 'Pass', 'Break','Continue', or 'Return':\n").lower()
+    if usr == 'pass':
+      pass
+      print("This is 'pass'")
+    elif usr == 'break':
+      break
+      print('this is "break"')
+    elif usr == 'continue':
+      continue
+      print("this is 'continue'")
+    elif usr == 'return':
+      return 'This is return'
+    else:
+      print('Please choose a valid option.')
+
+test()
+
+this is a native keywords in python or just called commands.
+
+
+
+
+
+
+
+
 
 
 
