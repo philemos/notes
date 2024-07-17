@@ -1,0 +1,113 @@
+Modify deliverable.py and implement guess_number so that it repeatedly asks the user 
+  for a number between 0 and 100 inclusive. If the user correctly guesses the value 
+  of the given argument n, print "WIN" and exit out of the loop. Otherwise indicate
+  whether the guess was "too high" or "too low". Test the deliverable manually or run
+  python3 check.py to run the supplied unit tests.
+
+  deliverable.py
+#!/usr/bin/env python3
+def guess_number(n):
+    pass
+#########below is the modified deliverable that works##################################
+
+#!/usr/bin/env python3
+  2 
+  3 def guess_number(n):
+  4     control = True
+  5     while control==True:
+  6         x = int(input("guess a number between 0 and 100 to win!\n>>>"))
+  7         if x == n:
+  8             print("WIN")
+  9             break
+ 10         elif x > n:
+ 11             print("that's too high")
+ 12             
+ 13         elif x < n:
+ 14             print("that's too low")
+ 15             
+ 16         else:
+ 17             print("please pick a number between 0 and 100 dummy")
+ 18             
+ 19 guess_number(23)
+
+   the while loop is inside the def function, with the control varible before the while loop and the user
+   input is just below the control varible.
+
+range()
+range(10)
+   list(range(10))
+   [0,1,2,3,4,5,6,7,8,9]
+start,stop,step
+   list(range(5,10,1))
+ [5,6,7,8,9]
+
+ord is the oppsoite of chr
+   where ord gives you the ascii position of the character you typed
+   and chr give you the charactoer in the given ascii postition you typed
+    example 
+   alphabet - []
+   for i in range(97,123):
+       alphabet.append(chr(i))
+
+   ^^^^^^^^^^^alphabet^^^^^^^^^
+
+
+{}
+type({})
+romanNumerals = {'I':1,'V':5,'X':10,'L':50}
+romanNumerals['V']
+  5
+romanNumerals['I']
+  1
+romanNumerals['X']
+  10
+romanNumerals['L']
+  50
+romanNumerals['C'] = 100
+romanNumerals
+  {'I':1,'V':5,'X':10,'L':50,'C':100}
+del romanNumerals['C']
+  romanNumerals = {'I':1,'V':5,'X':10,'L':50}
+
+
+^^^^^^^^^^^^^dictonary^^^^^^^^^^^^^^^^^
+for key in romanNumerals
+  print('{}={}'.format(key,romanNumerals[key]))
+this will print the corresponding roman numeral to its number in a list format.
+
+  *****next example******
+  inventory ={'CLB25':69.99,'MVP':149.99,'wheels':5}
+for game in inventory:
+  print (inventory[game])
+for game in inventory:
+  print (game)
+ order = (['wheels',5],['MVP',2])
+for i in order:
+  print(i)
+  ['wheels',5]
+  ['MVP',2]
+  order[0]
+  ['wheels',5]
+  order[0][-1]
+
+  total = 0
+  for i in order:
+    total += inventory[i[0]] * i[1]
+  >>>total
+  324.98
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
