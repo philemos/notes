@@ -157,6 +157,10 @@ fileref = open('school_prompt.txt', 'r')
 words = fileref.read().split()
 p_words = [word for word in words if 'p' in word]
 
+#######################################################################
+
+https://www.geeksforgeeks.org/args-kwargs-python/
+
 
 
 
