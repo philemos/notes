@@ -1,0 +1,82 @@
+def q1(sentence):
+  4     '''
+  5     Given a string of multiple words separated by single spaces,
+  6     return a new string with the sentence reversed. The words
+  7     themselves should remain as they are. For example, given
+  8     'it is accepted as a masterpiece on strategy', the returned
+  9     string should be 'strategy on masterpiece a as accepted is it'.
+ 10     '''
+ 11     pass
+ 12 
+ 13 def q2(n):
+ 14     '''
+ 15     Given a positive integer, return its string representation with
+ 16     commas seperating groups of 3 digits. For example, given 65535
+ 17     the returned string should be '65,535'.
+ 18     '''
+ 19     pass
+ 20 
+ 21 def q3(lst0, lst1):
+ 22     '''
+ 23     Given two lists of integers, return a sorted list that contains
+ 24     all integers from both lists in descending order. For example,
+ 25     given [3,4,9] and [8,1,5] the returned list should be [9,8,5,4,3,1].
+ 26     The returned list may contain duplicates.
+ 27     '''
+ 28     pass
+ 29 
+ 30 def q4(s1,s2,s3):
+ 31     '''
+ 32     Given 3 scores in the range [0-100] inclusive, return 'GO' if
+ 33     the average score is greater than 50. Otherwise return 'NOGO'.
+ 34     '''
+ 35     pass
+ 36 
+ 37 def q5(integer, limit):
+ 38     '''
+ 39     Given an integer and limit, return a list of even multiples of the
+ 40     integer up to and including the limit. For example, if integer==3 and
+ 41     limit==30, the returned list should be [0,6,12,18,24,30]. Note, 0 is
+ 42     a multiple of any integer except 0 itself.
+ 43     '''
+ 44     pass
+ 45 
+ 46 def q6(f0, f1):
+ 47     '''
+ 48     Given two filenames, return a list whose elements consist of line numbers
+ 49     for which the two files differ. The first line is considered line 0.
+ 50     '''
+ 51     pass
+ 52 
+ 53 def q7(lst):
+ 54     '''
+ 55     Return the first duplicate value in the given list.
+ 56     For example, if given [5,7,9,1,3,7,9,5], the returned value should
+ 57     be 7.
+ 58     '''
+ 59     pass
+ 60 
+ 61 def q8(strng):
+ 62     '''
+ 63     Given a sentence as a string with words being separated by a single space,
+ 64     return the length of the shortest word.
+ 65     '''
+ 66     pass
+ 67 
+ 68 def q9(strng):
+ 69     '''
+ 70     Given an alphanumeric string, return the character whose ascii value
+ 71     is that of the integer represenation of all of the digits in the string
+ 72     concatenated in the order in which they appear. For example, given
+ 73     'hell9oworld7', the returned character should be 'a' which has
+ 74     the ascii value of 97.
+ 75     '''
+ 76     pass
+ 77 
+ 78 def q10(arr):
+ 79     '''
+ 80     Given a list of positive integers sorted in ascending order, return
+ 81     the first non-consecutive value. If all values are consecutive, return
+ 82     None. For example, given [1,2,3,4,6,7], the returned value should be 6. 
+ 83     '''
+ 84     pass
