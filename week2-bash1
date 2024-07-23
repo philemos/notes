@@ -1,0 +1,117 @@
+day one for bash
+get onto bash student guide website:
+https://cted.cybbh.io/tech-college/pns/public/pns/latest/guides/bash_sg.html
+...
+ssh student@10.50.33.146 -X
+password
+terminator
+mkdir bash
+cd bash
+...
+ss64 linux website for linux stuff
+...
+man               (help)
+touch             (create a file)
+mkdir             (make a directory)
+umask             (default perm)
+chmod             (change permissions)
+ls - lisa         (list items)
+rm -rf 0r -r      (remove recursively file)
+rmdir             (remove directory)
+ls -1             (numerical value (one per line))!!! might be important later
+pwd               (print working directory)
+cat /etc/passwd   (pasword stuff ig)
+cat /etc/passwd >> fake1passwd.txt
+find              (find stuff)
+find -name        (will find case sensitive file)
+find -iname       (will find case insensitive stuff)
+find -size
+find -size +1G (find a file less than a gig)
+find size  -1G (find a file greater than a gig)
+find -gid (group id)
+find -uid (user id)
+grep (grab in file) 
+find -maxdepth (how deep to go into a directory
+find / -type d (find all direcotrys)
+find -type d (all direcotries inside current direcotires)
+find -type f (all files)
+find -naem \*.txt (find me anything with .txt)
+find -atime 3 (find anything acesed within the lst three days)
+find -ctime 3 (find anyhting changed within the last 3 days)
+find -mtime 3 (find anyhithng modified withihn the last 3 days)
+find -amin 60 (find anyhitng changed within the last hour)
+find -cmin 60 (find anyhitng changed last houyr)
+find -mmin 60 (modified last hour)
+find $HOME -mtime 0 (find everyhitng modified in the last day at home dir)
+sudo !! (run last command in root permissions)
+
+find [path] [arguments] -exec [command] {} \; 
+          command] is what you want to execute over results given by the find command.
+          {} is a placeholder that is used to hold results given by the find command.
+          \; says that for each found result, the [command] is executed.
+          You need to escape the ; here and hence \;.
+
+find [path] [arguments] -exec [command] {} +
+          Here, + says for every result of the find command, the [command] is executed only once.
+          All the results are passed to the [command] as arguments together.
+          + does not need to be escaped with \+.
+          Still confused about the use of {} \; and {} +?
+          {} \; is like this (executing the commands for each found result):
+
+
+find / -perm/4000 -uid 0 -ls 2>/dev/null
+
+find /var/log -iname *.log 2>/dev/null -printf "%i %f\n"
+
+find / -inum 38 2>/dev/null
+
+egrep = -e (might need )
+
+egrep "studfent|root|bob"
+
+cat fake1passwd.tt | grep -v /bin/bash
+(- v inverts search)
+
+...
+https://phoenixnap.com/kb/bash-printf
+The bash printf command is a tool used for creating formatted output. It is a shell built-in, similar to the printf() function in C/C++, Java, PHP, and other programming languages. The command allows you to print formatted text and variables in standard output.
+
+Use printf in bash scripts to increase efficiency and reusability when programming.
+
+In this tutorial, you will learn to use the printf command in Linux to print variables and format the output.
+
+...
+https://www.baeldung.com/linux/bash-single-vs-double-brackets
+While comparing variables in Bash, we generally use single brackets ([ ]) and double brackets ([[ ]]) interchangeably.
+
+For example, we can use the expressions [ 3 -eq 3 ] or [[ 3 -eq 3 ]] while checking whether 3 is equal to 3. Both will be successful in performing the comparison. So, what’s the difference between them?
+
+In this tutorial, we’ll discuss the differences between single and double brackets in Bash.
+...
+
+mkdir cosc11{23,45,67}
+ makes dir with 3 nested dirs each named cosc1123,1145,1167
+...
+ps -elf
+ps aux
+kill all
+pkill
+kill -346
+
+cat fake1passwd.txt | cut -d: -f1
+
+cat fakepaswd.txt | cut -d: -f1 -s
+
+and == &
+logical and == &
+logical or == ||
+logical not == ! 
+pipe = |
+> new file (or overwrite)
+>> append (or create)
+
+find $HOME/1123/*.txt -name ! /'~' -exec cp $HOME/CUT
+
+
+
+
