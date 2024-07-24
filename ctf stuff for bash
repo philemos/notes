@@ -37,6 +37,7 @@ Files to create:
 mkdir $HOME/1123
 cd $HOME/1123
 touch {1..5}.txt {6..9}~.txt
+
 3################################################################################
 Using the find command, list all files in $HOME/1123 that end in .txt.
 Be aware that if you use Pattern Matching to locate the files you may have unintended 
