@@ -4,3 +4,24 @@ mkdir makes dir
 #####################################
 http://10.50.26.116/challenges
 ####################################
+#!/bin/bash
+a=120
+b=20
+c=$ (expr $A -$B)
+echo c$
+
+#!/bin/bash
+print_me(){
+echo hello i am a function
+}
+
+contents=$(cat simple.txt)
+if [[$contents == "tacos"]]; then
+        echo "are good on tuesdays" 
+elif [[$contents == "costco is amazing"]]; then
+        echo "and will save you money"
+elif [[$contents == "chicken bake"]]; then
+        echo "tasty but will make you fail ht/wt"
+else
+        echo "no tax at comissary"
+fi
