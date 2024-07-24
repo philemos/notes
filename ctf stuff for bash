@@ -14,6 +14,7 @@ To read more on Brace Expansion, go to the following resource:
 https://www.gnu.org/software/bash/manual/bash.html#Brace-Expansion
 
 mkdir 11{23,34,45,56}
+
 2#########################################################################
 As we learned, the following example would create five files with one command.
 touch file1.txt file2.txt file3.txt passwd.txt shadow.txt
