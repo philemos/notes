@@ -33,4 +33,36 @@ echo the was at the i am $!
 echo
 echo
 
+review
+
+grep -v
+how to use special characters
+tar -czf
+find *
+cut -d (delim
+awk -f
+--depth
+wc (word count)
+wc -l (line count)
+rm -rf
+touch -t (time)
+touch -d (date)
+command sub
+variable sub
+kill (pid)
+cmin
+amin
+sed
+sort -t
+ls -l and ls -1
+
+
+
+
+
+
+
+
+
+
 
