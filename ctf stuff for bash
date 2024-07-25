@@ -177,6 +177,37 @@ To read more on Positional Parameters, go to the following resource:
 To read more on the Passwd file format, go to the following resource:
 
     man passwd.5
+            &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+# Check if the correct number of positional parameters is provided
+if [[ $# -ne 3 ]]; then
+    echo "Usage: $0 <passwd_file> <new_username> <new_uid_gid>"
+    exit 1
+fi
+
+# Read the last line from the passwd-like file
+last_line=$(tail -n 1 "$1")
+
+# Extract relevant fields from the last line
+old_username=$(echo "$last_line" | awk -F ':' '{print $1}')
+old_uid_gid=$(echo "$last_line" | awk -F ':' '{print $3}')
+old_home_dir=$(echo "$last_line" | awk -F ':' '{print $6}')
+
+# Create a new home directory path based on the new username
+new_home_dir="/home/$2"
+
+# Modify the last line with new values
+modified_line="${2}:${old_username}:${3}:${3}::${new_home_dir}:/bin/bash"
+
+# Append the modified line to the end of the file
+echo "$modified_line" >> "$1"
+
+echo "Modified line appended to $1:"
+echo "$modified_line"
+         &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+[[ $# -ne 3 ]] && echo "Usage: $0 <passwd_file> <new_username> <new_uid_gid>" && exit 1
+last_line=$(tail -n 1 "$1")
+new_home_dir="/home/$2"
+echo "${2}:${last_line#*:}:${3}:${3}::${new_home_dir}:/bin/bash" >> "$1"
 
 13######################################################################################
 Find all executable files under the following four directories:
@@ -202,6 +233,7 @@ use Command Subtitution.
 
 exec=$(find /usr/bin/ /usr/sbin/ /sbin/ /bin/ -executable -type f | sort | head | tail -1)
 md5sum $exec | cut -d' ' -f1
+
 14######################################################################################
 Using any BASH command complete the following:
 
@@ -224,6 +256,7 @@ we have the string /home/chris as STDIN for a command, as seen in the below exam
 [chris@localhost ~]$ echo "/home/chris" | md5sum
 fd1a05901ce7150f82abd7f7d76f2827  -
 
+sort -t ':' -k 3 -n /etc/passwd | sed -n '10p' | cut -d ':' -f 6 | md5sum | awk '{print $1}'
 
 15######################################################################################
 Write a script which will find and hash the contents 3 levels deep from each of these 
@@ -239,6 +272,10 @@ directories:
 Example Output:
 
 Successfully Hashed Files: 105
+
+[[ $# -ne 3 ]] && echo "Usage: $0 <passwd_file> <new_username> <new_uid_gid>" && exit 1
+awk -F ':' -v user="$2" -v uid_gid="$3" '{OFS=":"; $1=user; $3=uid_gid; $4=uid_gid; $6="/home/"user; $7="/bin/bash"; print}' "$1" >> "$1"
+
 16######################################################################################
 Design a script that detects the existence of directory: $HOME/.ssh
 
@@ -253,9 +290,6 @@ for the purposes of this exercise. This is not necessary for passing
 the activity but can be used for
 testing on your local machine.
 
-
-
-
 if [[ -d "$HOME/.ssh" ]]; then
     mkdir $HOME/SSH
     cp $HOME/.ssh/* $HOME/SSH/
@@ -263,7 +297,7 @@ else
     echo "Run ssh-keygen"
 fi
 
-17######################################################################################
+17###############################################################################################################
 Write a script that determines your default gateway ip address. Assign that address to a variable 
 using command substitution.
 
@@ -288,6 +322,25 @@ else
    echo "failure";
 fi 
 
+#!/bin/bash
+
+# Determine the default gateway IP address
+gateway_ip=$(ip route | awk '/default via/{print $3}')
+
+# Find the absolute path of the ping application
+ping_path=$(command -v ping)
+
+# Send six ping packets to the default gateway
+ping_response=$(ping -c 6 "$gateway_ip" 2>&1)
+
+# Evaluate the response
+if [[ "$ping_response" == *"received"* ]]; then
+    echo "Ping to default gateway ($gateway_ip) successful!"
+else
+    echo "Ping to default gateway ($gateway_ip) failed."
+fi
+
+
 18######################################################################################
 Create the following files in a new directory you create $HOME/ZIP:
         file1 will contain the md5sum of the text 12345
@@ -299,6 +352,24 @@ the zip file. Name the zip file $HOME/ZIP/file.zip
     Utilize tar on $HOME/ZIP/file.zip to archive it into a file called $HOME/ZIP/file.tar.gz which
 should not include directories. Use the gzip option in tar, DO NOT use a seperate gzip binary.
         HINT: You might need an option to change directories first.
+
+#!/bin/bash
+
+# Create the directory
+mkdir -p "$HOME/ZIP"
+
+# Create the files with MD5 sums
+echo -n "12345" | md5sum > "$HOME/ZIP/file1"
+echo -n "6789" | md5sum > "$HOME/ZIP/file2"
+echo -n "abcdef" | md5sum > "$HOME/ZIP/file3"
+
+# Create a zip file without directory structure
+zip -j "$HOME/ZIP/file.zip" "$HOME/ZIP/file1" "$HOME/ZIP/file2" "$HOME/ZIP/file3"
+
+# Archive the zip file into a tar.gz file
+tar czf "$HOME/ZIP/file.tar.gz" -C "$HOME/ZIP" file.zip
+
+echo "Files created successfully!"
 
 19######################################################################################
 Design a basic FOR Loop that iteratively alters the file system and user entries in a passwd-like 
@@ -312,6 +383,20 @@ user's name in the $HOME directory (i.e. $HOME/LARRY.txt might contain 123)
     The default shell will be /bin/bash
     The other fields in the new entries should match root's entry
     Users should be created in the order specified
+
+#!/bin/bash
+
+# Create users LARRY, CURLY, and MOE
+for user in LARRY CURLY MOE; do
+    uid_gid=$(cat "$HOME/$user.txt")  # Read UID/GID from corresponding file
+    home_dir="$HOME/$user"            # Home directory path
+    shell="/bin/bash"                 # Default shell
+
+    # Append user entry to passwd-like file
+    echo "${user}:x:${uid_gid}:${uid_gid}:${user} User:${home_dir}:${shell}" >> "$HOME/passwd"
+done
+
+echo "User entries added to $HOME/passwd"
 
 20######################################################################################
 Write a bash script that will find all the files in the /etc directory, and obtains the octal 
@@ -336,6 +421,39 @@ Files w/ OCTAL Perm Values 0-640:
       3 440
       2 600
       1 444
+# Initialize counters
+low_count=0
+high_count=0
+
+# Create temporary files for low and high permissions
+low_file="low.txt"
+high_file="high.txt"
+
+# Iterate through files in /etc directory
+for file in /etc/*; do
+    # Get octal permissions using stat
+    permissions=$(stat -c "%a" "$file")
+
+    # Check if permissions are 0-640 or 642+
+    if [[ $permissions -le 640 ]]; then
+        echo "$permissions" >> "$low_file"
+        ((low_count++))
+    else
+        echo "$permissions" >> "$high_file"
+        ((high_count++))
+    fi
+done
+
+# Sort files by count (numerically reversed) and display results
+echo -e "Files w/ OCTAL Perm Values 642+:"
+sort -k1nr "$high_file"
+
+echo -e "\nFiles w/ OCTAL Perm Values 0-640:"
+sort -k1nr "$low_file"
+
+# Clean up temporary files
+rm "$low_file" "$high_file"
+
 #####################################################################################
 
 
