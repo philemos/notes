@@ -1,2 +1,286 @@
+######################### start #########################################################
+
 xfreerdp /u:student /v:10.50.26.106 -dynamic-resolution +glyph-cache +clipboard
 Password = password
+
+######################### powershell #################################################
+
+PS C:\Users\student> get-help
+PS C:\Users\student> get-command
+PS C:\Users\student> get-command -verb get
+PS C:\Users\student> get-command -noun process
+PS C:\Users\student> ls
+PS C:\Users\student> tasklist
+PS C:\Users\student> get-process
+PS C:\Users\student> get-help get-command
+PS C:\Users\student> get-help get-command -Examples
+PS C:\Users\student> get-help *log*
+PS C:\Users\student> get-help *event*
+PS C:\Users\student> get-help get-process -online
+PS C:\Users\student> get-childitem -path c:\windows -filter *.exe -recurse -name
+
+
+###################### Practical Exercise:Running Cmdlets ###############################
+
+1. Display a list of running processes.
+    PS C:\Users\student> tasklist
+    or
+    get-process
+2. Display a list of all running processes that start with the letter "s".
+    PS C:\Users\student> get-process s*
+3. Find the cmdlet and its purpose for the following aliases:
+
+        (gal)  (dir)  (echo)  (?)  (%)  (ft)
+
+        $array =  "gal", "dir", "echo", "?", "%", "ft
+        $array | foreach-object{get-alias $_}
+
+            PS C:\Users\student> get-command gal                
+            Alias           gal -> Get-Alias                                                                         
+        
+            PS C:\Users\student> get-command dir                    
+            Alias           dir -> Get-ChildItem                                                                     
+            
+            PS C:\Users\student> get-command echo                  
+            Alias           echo -> Write-Output                                                                     
+            
+            PS C:\Users\student> get-command ?
+                                
+            Alias           % -> ForEach-Object                                                                      
+            Alias           ? -> Where-Object                                                                        
+            Alias           h -> Get-History                                                                         
+            Alias           r -> Invoke-History                                                                      
+        
+            PS C:\Users\student> get-command %                   
+            Alias           % -> ForEach-Object                                                                      
+
+4. Display a list of Windows Firewall Rules.
+    PS C:\windows\system32> get-netfirewallrule -all
+5. Create a new alias called "gh" for the cmdlet "Get-Help"
+
+            PS C:\windows\system32> new-alias -name gh -value Get-Help
+            PS C:\windows\system32> get-alias -name gh
+            
+            CommandType     Name                                               Version    Source
+            -----------     ----                                               -------    ------
+            Alias           gh -> Get-Help
+
+############################# Practical Exercise: Find Cmdlets ############################################
+
+    1.Ensure that you have the latest copy of help by updating your help system.
+PS C:\windows\system32> update-help
+    2.Which cmdlets deal with the viewing/manipulating of processes?
+get-process
+    3.Display a list of services installed on your local computer.
+Get-Service
+    4.What cmdlets are used to write or output objects or text to the screen?
+write-output
+    5.What cmdlets can be used to create, modify, list, and delete variables?
+Get-Variable	
+New-Variable	
+Remove-Variable	
+Set-Variable
+    6.What cmdlet can be used, other than Get-Help, to find and list other cmdlets?
+get-command
+    7.Find the cmdlet that is used to prompt the user for input.
+Read-Host 
+##################################### lecture ##################################################
+
+get-process | get-member -membertype method
+get-process | get-member -membertype properties
+get-command -verb formate
+get-service | format-table name, status -eq stopped
+
+$cols = @{Label="KB"; Expression = { [int]($_.Length/1KB) }}
+Get-ChildItem | Format-Table name, $cols
+
+get-service | where-object {$_.status -eq  "running"}
+
+get-service | where-object -property status -eq 'stopped'
+
+                                    function fruit-host {
+                                      write-output "apple"
+                                      write-output "orange"
+                                      write-output "banana"
+                                      write-output "Pear"
+                                      }
+                                    
+                                    function fruit-output {
+                                      write-output "apple"
+                                      write-output "orange"
+                                      write-output "banana"
+                                      write-output "Pear"
+                                      }
+                                    
+                                    fruit-host | sort
+                                    fruit-output | sort
+
+$x = 10
+get-variable x
+get-childitem variable:x
+
+$x, $y, $z = "this", "that", "third"
+test-path variable:x
+
+
+
+remove-variable x
+del varible:x
+
+$var1 = "jon"
+write-host "hello $var1"
+write-host 'hello $var1'
+
+https://www.red-gate.com/simple-talk/sysadmin/powershell/when-to-quote-in-powershell/
+
+###################### Practical Exercise: Variables ###################################
+
+    1.Create a variable called "var1" that holds a random number between 25-50.
+$var1 = Get-Random -Minimum 25 -Maximum 50
+    2.Create a variable called "var2" that holds a random number between 1-10.
+$var2 = Get-Random -Minimum 1 -Maximum 10
+    3.Create a variable called "sum" that holds the sum of var1 and var2.
+$sum = $var1 + $var2
+    4.Create a variable called "sub" that holds the difference of var1 and var2.
+$sub = $var1 - $var2
+    5.Create a variable called "prod" that holds the product of var1 and var2.
+$prod = ($var1)*($var2)
+    6.Create a variable called "quo" that holds the quotient of var1 and var2.
+$quo = ($var1)/($var2)
+    7.Replace the variables in text with their values in the following format:
+
+        "var1" + "var2" = "sum"
+
+    8.Replace the variables in text with their values in the following format:
+
+        "var1" - "var2" = "sub"
+
+    9.Replace the variables in text with their values in the following format:
+
+        "var1" * "var2" = "prod"
+
+    10.Replace the variables in text with their values in the following format:
+
+        "var1" / "var2" = "quo"
+
+$var1 = Get-Random -Minimum 25 -Maximum 50
+$var2 = Get-Random -Minimum 1 -Maximum 10
+$sum = $var1 + $var2
+$sub = $var1 - $var2
+$prod = ($var1)*($var2)
+$quo = ($var1)/($var2)
+
+
+write-host "$var1 + $var2 = $sum"
+write-host "$var1 - $var2 = $sub"
+write-host "$var1 * $var2 = $prod"
+write-host "$var1 / $var2 = $quo"
+
+############################################### lecture ##############################################
+
+$revarray = -3..15                                            15    
+$reverse = $revarray[($revarray.length-1)..0]                 14
+$reverse                                                      13
+                                                              12
+$revarray = -3..15                                            11
+$reverse = $revarray[($revarray.length-1)..0]                 10
+[array]::reverse($revarray)                                    9
+write-output $reverse                                          8
+https://www.tutorialspoint.com/powershell/                     7
+powershell_brackets.htm                                        6
+                                                               5
+                                                               4
+                                                               3
+                                                               2
+                                                               1
+                                                               0
+                                                              -1
+                                                              -2
+                                                              -3
+
+$employee1 = [ordered]@{}
+$employee2 = [ordered]@{}
+$employee3 = [ordered]@{}
+
+$employee1.Username = "mhopper001"
+$employee1.First = "Mary"
+$employee1["Last"] = "Hopper" 
+$employee1.ID = "001" 
+$employee1["Job"] = "Software Developer"
+
+$employee1
+
+$employee2["Username"] = "jwilliams002" 
+$employee2.First = "John"
+$employee2["Last"] = "Williams"
+$employee2.ID = "002" 
+$employee2["Job"] = "Web Developer" 
+
+$employee2
+
+$employee3["Username"] = "bmarley204" 
+$employee3.First = "Bob"
+$employee3["Last"] = "Marley"
+$employee3.ID = "003" 
+$employee3["Job"] = "Soundtrack Producer" 
+
+$employee3
+
+                                                    Name                           Value                                                                     
+                                                    ----                           -----                                                                     
+                                                    Username                       mhopper001                                                                
+                                                    First                          Mary                                                                      
+                                                    Last                           Hopper                                                                    
+                                                    ID                             001                                                                       
+                                                    Job                            Software Developer                                                        
+                                                    Username                       jwilliams002                                                              
+                                                    First                          John                                                                      
+                                                    Last                           Williams                                                                  
+                                                    ID                             002                                                                       
+                                                    Job                            Web Developer                                                             
+                                                    Username                       bmarley204                                                                
+                                                    First                          Bob                                                                       
+                                                    Last                           Marley                                                                    
+                                                    ID                             003                                                                       
+                                                    Job                            Soundtrack Producer  
+
+foreach ($grp in (get-localgroup).name) {
+  write-host "`n$grp" -foregroundcolor red
+  '======================================='
+  (Get-LocalGroupMember -name $grp).name` -replace("$env:computername\\",'')
+  }
+
+
+
+get-ciminstance win32_service | sort-object -property state |ft -property ProcessID,Name,state,pathname
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                    
+
+
+
+
