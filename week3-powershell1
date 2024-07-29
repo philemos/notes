@@ -1,0 +1,2 @@
+xfreerdp /u:student /v:10.50.26.106 -dynamic-resolution +glyph-cache +clipboard
+Password = password
