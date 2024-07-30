@@ -1,1 +1,336 @@
+############################# online guide for pwsh ########################################################
+
+https://git.cybbh.space/programming/powershell/public/-/blob/master/student_guide.adoc?ref_type=heads
+
+############################# lecture ########################################################
+
+$myblock = {get-service | format-table name,status}
+& $myblock
+
+$myblock = {get-service | format-table name,status}
+invoke-command or & $myblock
+
+get-childitem | sort-Object -property length -descending 
+
+get-childitem | sort-Object -property extension | format-table -groupby extension | format-table -groupby extension
+
+get-service | group-object status {$_.length -lt 1kb}
+
+get-process | select-object -first 10
+
+get-process | select-object -last 10
+
+get-process | select-object name,id
+
+get-process | select-object -expandproperty name
+
+################################## Practical Exercise: The Pipeline ############################################
+
+    Display the start time of the earliest and latest running processes
+
+          Get-Process| where-object starttime| Select name,starttime| Sort-Object StartTime| select-object -first 1 -last 1    
+    
+    Identify a cmdlet that returns the current date and time then using this cmdlet and Select-object,
+    display only the current day of the week
+
+          Get-Date | Select-Object -ExpandProperty DayOfWeek
+
+    Identify a cmdlet that displays a list of installed hotfixes.
+
+          Get-hotfix
+  
+    Extend the expression to sort the list by install date,
+    and display only the install date and hotfix ID.
+
+          Get-hotfix | Sort-Object -Property InstalledOn | Select-Object InstalledOn, HotFixID
+
+    Extend the expression further, but this time sort by description, include description,
+    hotfix ID, and install Date.
+
+          Get-hotfix | Sort-Object -Property Description | Select-Object Description, InstalledOn, HotFixID
+
+############################## lecture ###############################################################################
+
+get-service | where-object{$_.status -eq 'running'}
+
+gci c:\ *.exe | where-object{$_.length -gt 1kb}
+
+get-process | where-object {$_.company -like 'micro*'} | format
+
+get-process | where-object {$_.name -notlike 'powershell*'}
+
+get-process | where-object processname -ne "idle" |~
+sort-object starttime | select-object -last 10 |~
+format table processname, starttime 2>$null
+
+1,2,3,1,2,3,1,2,3,1,2,34,4,1,2,4 | sort-object | get-unique
+
+get-childitem c:\ | measure-object Length
+
+$array = 1,2,3,4,5
+$sum = 0
+$array | foreach-object {$sum += $_}
+$sum
+
+'what is the answer to life, the universe and everything?' > test.txt
+$before = get-childitem
+
+'42' > test.txt
+$after= get-childitem
+
+compare-object $before $after -property length, name
+
+$mytruck = new-object object
+
+add-member -membertype noteproperty -name color -value white -inputobject $mytruck
+add-member -me noteproperty -in $mytruck -na make -value Toyotas
+add-member -inputobject $mytruck noteproperty model "tundra sr5 technically"
+$mytruvk | add-member noteproperty cab doublecab
+$mytruck.color
+add-member -membertype scriptmethod -inputobject $mytruck -name drive -value {going on a roadtrip}
+add-member -inputobject $mytruck scriptmethod accelerate {"skinny pedal on the right"}
+$mytruck | add-member scriptmethod park {"finding a spot is impossible"}
+$mytruck.park()
+$mytruck.accelerate()
+
+"abc" -ne "fd"
+                                                            powershell 101 
+"powershell" -like "*shell"
+
+$fruit = 'mango', 'watermelon', 'tomatoes'
+$fruit -contains 'tomatoes'
+$fruit -contains 'crayons'
+
+$text = "your account username is ACE4495"
+$pattern = '([A-F]{3})(\d{4})'
+$text -match $pattern
+
+$x = 11
+if($x -gt 10){"$x is larger than 10"}
+else 11 is larger than 10
+
+$x = 2 
+elseif ($x -eq 5) {
+  write-host "Bob"
+}
+
+elseif ($x -eq 4) {
+  write-host "Sue"
+}
+
+elseif ($x -eq 2) {
+  write-host "Tom"
+}
+
+elseif ($x -eq 1) {
+  write-host "Mary"
+}
+
+else {
+  write-host "who am i"
+}
+
+
+$list = 'a', 'b', 'c', 'd'
+$list | foreach-object {$_.tolower()}
+
+$nums = 
+$sum = 0
+$nums | foreach-object { $sum += $_}
+$nums
+
+get-process | select-object -first 10 | foreach-object {$_.name} | foreach-object {$_.toupper()}
+
+
+foreach ($item in gci c:\ -recurse){$item.name}
+
+$teams = "yankess", "fsu", "tiger", "greenjackets"
+foreach($teams in $teams){"sportsball $teams"}
+
+$var = ""
+while($var -ne "marine"){
+      $var = read-host "which branch of the military is the best?"
+      }
+
+$num = 0
+do {
+    $num
+    $num++
+}while($num -le 100)
+
+
+
+$num = 0
+do {
+    $num
+    $num++
+}until ($num -gt 100)
+
+for($num =1; $num -le 3; $num++){$num}
+
+for($1 = 0; $i -le 255 ;$i++) {
+    write-host 192.168.0.$i
+}
+
+$num = 0
+while($num -lt 10){
+    $num += 1
+    if($num -eq 2) {
+        continue
+    }
+    $num
+}
+
+set-content -path .\example.txt -value "a string"
+
+get-content .\example.txt
+############################################ Practical Exercise: Looping & Iteration ###################################
+
+
+    Part 1
+
+        Use an array to iterate and open the following
+
+            Notepad
+
+            MS Edge
+
+            MSpaint
+
+        Query the processes
+
+        Kill the processes from PowerShell
+
+########
+$processes = @("msedge", "notepad", "mspaint")
+
+foreach ($process in $processes) {
+    Start-Process -FilePath $process
+}
+
+
+Get-Process -Name $processes
+
+foreach ($process in $processes) {
+    Stop-Process -Name $process -Force
+}########
+
+
+Part 2
+
+        Use an array to iterate and open the following
+
+            Notepad
+
+            MS Edge
+
+            MSpaint
+
+        Query the processes
+
+        Save the ProcessIDs to a text file called procs.txt
+
+        Iterate through the ProcessIDs in the text file and kill them
+
+
+#######
+$processes = @("msedge", "notepad", "mspaint")
+
+foreach ($process in $processes) {
+    Start-Process -FilePath $process
+}
+
+Get-Process -Name $processes | Select-Object -Property Name, Id | Format-Table -AutoSize | Out-File -FilePath .\procs.txt
+
+$processIds = Get-Content .\procs.txt | ForEach-Object {
+    $line = $_.Substring(6).Trim()
+    if ($line -match '^\d+$') {
+        $line
+    }
+}
+
+foreach ($id in $processIds) {
+   Stop-Process -Id $id -Force
+ }
+#######
+ 
+
+
+Part 3
+
+        Use an array to iterate and open the following
+
+            Notepad
+
+            MS Edge
+
+            MSpaint
+
+        Query the processes and display only the following information in order by process ID
+
+            Process ID
+
+            Process Name
+
+            The time the process started
+
+            The amount of time the process has spent on the processor
+
+            The amount of memory assigned to the process
+
+
+
+    Part 2
+
+        Use an array to iterate and open the following
+
+            Notepad
+
+            MS Edge
+
+            MSpaint
+
+        Query the processes
+
+        Save the ProcessIDs to a text file called procs.txt
+
+        Iterate through the ProcessIDs in the text file and kill them
+
+    Part 3
+
+        Use an array to iterate and open the following
+
+            Notepad
+
+            MS Edge
+
+            MSpaint
+
+        Query the processes and display only the following information in order by process ID
+
+            Process ID
+
+            Process Name
+
+            The time the process started
+
+            The amount of time the process has spent on the processor
+
+            The amount of memory assigned to the process
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
