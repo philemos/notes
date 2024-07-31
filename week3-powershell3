@@ -1,1 +1,13 @@
+[math]::sqrt(64)
+8
+[math]::pow(6,2)
+36
 
+-clike for case sensitive
+-ilike for insensitive
+
+-eq ==
+-like like
+
+-match allows u to match base on expression
+*
