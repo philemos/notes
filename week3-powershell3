@@ -10,4 +10,126 @@
 -like like
 
 -match allows u to match base on expression
-*
+
+################################################################
+#"elements provided in the pipeline"
+
+function Print-PSitem{
+    Begin{}
+    Process{}
+    End{}
+}
+######################################################################3
+#"elements provided in the pipeline"
+
+function Get-Sum{
+    Begin{$sum = 0}
+    Process{$sum += $_; $_}
+    End{$sum}
+}
+
+function Get-Sum2 {
+    $sum = 0
+    foreach($i in $input){$sum += $i; $i}
+    $sum
+}
+
+function Print-PSitem{
+    #Begin{}
+    Process{foreach ($i in $PSitem){$i}}
+    #End{}
+}
+
+function Print-Input {
+    foreach($i in $input){$i}
+}
+#################################################################################################
+$matches
+$input
+$psitem
+
+################################################# Practical Exercise: Advanced Functions ################################################
+
+Create an advanced function using Begin, Process, and End, that takes two(2) arguments.
+The first argument being an array of at least ten(10) integers and the second argument being a single integer.
+Search the array argument for every occurrence of the single integer argument,
+then return the sum of all elements in the array excluding every occurrence of the single integer argument.
+
+function get-multisum([array]$array,[int]$number){
+    begin{$sum = 0}
+    process{
+        foreach($num in $array){
+        if ($num -eq $number){
+            continue
+            }
+            $sum += $num 
+        }
+    }
+    End{$sum}
+}
+
+Create an advanced function using Begin, Process, End, that prompts the user to enter the names of
+three(3) U.S. States then returns the names of the states in the order of longest name to shortest name
+and the amount of characters in each name.
+
+
+function getname ([array]$names){
+    begin{}
+    process{
+    $namesorg = $names | Sort-Object 
+    }
+    end{
+        foreach ($state in $namesorg){     
+    $state + ":"+ $state.length 
+            }
+    }
+}
+
+ooooooooooooooooooooooooooooooooorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+oorororororororororororororororororororororororororororororororororororororororororororororo
+
+function get-longestname{
+    begin{
+    $Count = 0 #keep track of states entered
+    $states #this will store the states
+    }
+    process{
+        while($count -lt 3){                                   #trap the user to type 3 states
+        $usr = read-host "enter a U.S States"                  #store user input
+        $states += $usr                                        #append the user imput to the list
+        $count += 1                                            #adds 1 to out count of states
+        }
+    }
+    end{
+        $list = $states | sort -property length -descending   #stores the sorted array to $list
+        foreach($state in $list){
+            "$state `:" + $state.length                       #prints the state and the number of states
+        }
+    }
+}
+#####################################################Practical Exercise: Regex######################################3
+
+Create a function that extracts your current IP, Subnet and Gateway and outputs them in the following format:
+
+Example
+PS> Get-netinfo
+IP: 192.168.0.1
+Subnet: 255.255.255.0
+Gateway: 192.168.1.1
+
+Create a function that extracts all the URLs found in the file "dns.txt" and outputs URLs, the amount of times the URL is found in the file and the total amount of URLs found.
+An example URL "www.exampleurl.com"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
