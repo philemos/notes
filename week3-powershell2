@@ -186,7 +186,6 @@ set-content -path .\example.txt -value "a string"
 get-content .\example.txt
 ############################################ Practical Exercise: Looping & Iteration ###################################
 
-
     Part 1
 
         Use an array to iterate and open the following
@@ -208,13 +207,11 @@ foreach ($process in $processes) {
     Start-Process -FilePath $process
 }
 
-
 Get-Process -Name $processes
 
 foreach ($process in $processes) {
     Stop-Process -Name $process -Force
 }########
-
 
 Part 2
 
@@ -240,22 +237,17 @@ foreach ($process in $processes) {
     Start-Process -FilePath $process
 }
 
-Get-Process -Name $processes | Select-Object -Property Name, Id | Format-Table -AutoSize | Out-File -FilePath .\procs.txt
+Get-Process -Name $processes
 
-$processIds = Get-Content .\procs.txt | ForEach-Object {
-    $line = $_.Substring(6).Trim()
-    if ($line -match '^\d+$') {
-        $line
-    }
-}
+Get-Process -Name $processes | Select-Object -Property Id | Format-Table -AutoSize | Out-File -FilePath .\procs.txt
+
+$processIds = (Get-Content .\procs.txt) -match '\d'
 
 foreach ($id in $processIds) {
-   Stop-Process -Id $id -Force
+   Stop-Process -Id $id 
  }
 #######
  
-
-
 Part 3
 
         Use an array to iterate and open the following
@@ -275,48 +267,16 @@ Part 3
             The time the process started
 
             The amount of time the process has spent on the processor
+#################################################################
+$processes = @("msedge", "notepad", "mspaint")
 
-            The amount of memory assigned to the process
+foreach ($process in $processes) {
+    Start-Process -FilePath $process
+}
 
 
-
-    Part 2
-
-        Use an array to iterate and open the following
-
-            Notepad
-
-            MS Edge
-
-            MSpaint
-
-        Query the processes
-
-        Save the ProcessIDs to a text file called procs.txt
-
-        Iterate through the ProcessIDs in the text file and kill them
-
-    Part 3
-
-        Use an array to iterate and open the following
-
-            Notepad
-
-            MS Edge
-
-            MSpaint
-
-        Query the processes and display only the following information in order by process ID
-
-            Process ID
-
-            Process Name
-
-            The time the process started
-
-            The amount of time the process has spent on the processor
-
-            The amount of memory assigned to the process
+Get-Process -Name $processes | Select-Object -Property Id, Name, starttime, cpu | sort-object -property Id
+#################################################################
 
 
 
@@ -325,12 +285,4 @@ Part 3
 
 
 
-
-
-
-
-
-
-
-
-
+ 
