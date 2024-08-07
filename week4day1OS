@@ -19,3 +19,4 @@ PS C:\users\ctf\documents> foreach ($i in 1000..0){expand-archive .\omega${i}.zi
 
 evry user profile is just a script
 
+https://www.putorius.net/grep-an-ip-address-from-a-file.html
