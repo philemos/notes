@@ -14,3 +14,8 @@ powershell profiles... looking to identify persistence as dco...
 looking to plant backdoor in pwershell as offensive...
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 PS C:\users\ctf\documents> foreach ($i in 1000..0){expand-archive .\omega${i}.zip ; copy-item .\omega${i}\omega$($i - 1).zip . }
+
+
+
+evry user profile is just a script
+
